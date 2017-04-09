@@ -1,0 +1,245 @@
+<html>
+<head>
+<title>Slotmachine</title>
+<script type="text/javascript">
+
+
+</script>
+<style>
+.pointer{
+		pointer-events:inherit;
+		}
+</style>
+</head>
+<body bgcolor="darkcyan">
+
+
+<b>
+<marquee height="70" bgcolor="dark green"  behavior="slide" direction="LTR" align="middle" width="900">
+<i><font face="Bookman Old Style" size=20>
+<font color=Blue>S l</font>
+<font color=Red>o t </font>
+<font color=Yellow>M a</font>
+<font color=Blue>c h</font>
+<font color=Green>i</font>
+<font color=Red>n e !</font>
+</font></i>
+<font size=6>
+<font face="Bookman Old Style" color=Blue>&nbsp;&nbsp;&nbsp;Save </font>
+<font color=Green>N</font>
+<font color=Red>a</font>
+<font color=Yellow>t</font>
+<font color=Blue>u</font>
+<font color=Green>r</font>
+<font color=Red>e</font>
+</font>
+<font size=5 color=Green>Games<sup>TM</sup></font>
+</marquee> 
+</b>
+
+<fieldset>
+<legend><h4>PLAYER-PROGRESS</h4></legend>
+<input type="button" style="height:50;width:100;" onClick="getplayer()" value="START" id="divstart">
+<input type="button" style="height:50;width:100;" onClick="insertcoin()" value="Insert coin" id="divstart">
+<input type="text" id="text2" size=100 readonly>
+</fieldset>
+<center>
+<table align="centre">
+<tr>
+<td>
+<table align="centre" border="7" bordercolor="red" cellpadding="2" cellspacing="2" >
+<tr>
+<td><div style="height:100;width:100;border:1px solid black" id="div1"></div></td>
+<td><div style="height:100;width:100;border:1px solid black" id="div2"></div></td>
+<td><div style="height:100;width:100;border:1px solid black" id="div3"></div></td>
+</tr>
+</table>
+</td>
+<td>
+
+<td><div style="height:210;width:110;border:1px solid black" id="pull"><img style="height:210;width:110;border:1px solid black" src=handle.gif /></div></td>
+</td>
+</tr>
+<tr>
+<b><font size=10>
+<font face="Bookman Old Style" color=Blue>Save </font>
+<font color=Green>N</font>
+<font color=Red>a</font>
+<font color=Yellow>t</font>
+<font color=Blue>u</font>
+<font color=Green>r</font>
+<font color=Red>e</font>
+</font></b>
+<font size=7 color=Green>Games<sup>TM</sup></font>
+
+</tr>
+</table></center>
+<script>
+function getFeedback(){
+window.location="feedback.php"
+}
+//-->
+</script>
+
+<script>
+	var result=0,p1;
+	var play; 
+	
+	function getplayer()
+{
+	var p1 = prompt("Enter your First player Name : ", "your Name");
+	document.querySelector('#text2').value="WELCOME TO SLOT-MACHINE " + p1.toUpperCase( ) + " ,Your initial balance will be " + result + "$.";
+	document.querySelector('#text2').style.font="bold italic 20px verdana";
+	document.querySelector('#text2').style.color="brown";
+	play=p1;
+}
+	function insertcoin()
+{
+	alert("10$ will be deducted from your account.Are you ready!! " + play.toUpperCase( ) )
+	result=result-10;
+	document.querySelector('#text2').value="Thank You " + play.toUpperCase( ) + " ,You have inserted coin.Your current balance is " + result + "$.";
+	document.querySelector('#text2').style.font="bold italic 20px verdana";
+	document.querySelector('#text2').style.color="brown";
+	secondFunction()
+	document.getElementById('#pull').disable=false;
+}
+function secondFunction(){
+if(document.querySelector)
+{	
+	var vr1=document.querySelector('#pull')
+	vr1.onmouseover= function(){
+	var no1,no2,no3,animate;
+	no1=Math.floor(Math.random()*6)+1
+	no2=Math.floor(Math.random()*6)+1
+	no3=Math.floor(Math.random()*6)+1
+	
+switch (no1)
+{
+case 1: document.querySelector('#div1').style.backgroundImage="url('11.bmp')";
+		document.querySelector('#div1').style.backgroundImage="url('11.bmp')";
+		document.querySelector('#div1').style.backgroundImage="url('1.bmp')";
+		var audio=new Audio('explosion.ogg'); audio.play();	
+		break;
+case 2: document.querySelector('#div1').style.backgroundImage="url('22.bmp')";
+		document.querySelector('#div1').style.backgroundImage="url('22.bmp')";
+		document.querySelector('#div1').style.backgroundImage="url('2.bmp')";
+		var audio=new Audio('explosion.ogg'); audio.play();	
+		break;
+case 3: document.querySelector('#div1').style.backgroundImage="url('33.bmp')";
+		document.querySelector('#div1').style.backgroundImage="url('33.bmp')";
+		document.querySelector('#div1').style.backgroundImage="url('3.bmp')";
+		var audio=new Audio('explosion.ogg'); audio.play();	
+		break;
+case 4: document.querySelector('#div1').style.backgroundImage="url('44.bmp')";
+		document.querySelector('#div1').style.backgroundImage="url('44.bmp')";
+		document.querySelector('#div1').style.backgroundImage="url('4.bmp')";
+		var audio=new Audio('explosion.ogg'); audio.play();	
+		break;
+case 5: document.querySelector('#div1').style.backgroundImage="url('55.bmp')";
+		document.querySelector('#div1').style.backgroundImage="url('55.bmp')";
+		document.querySelector('#div1').style.backgroundImage="url('5.bmp')";
+		var audio=new Audio('explosion.ogg'); audio.play();	
+		break;
+case 6: document.querySelector('#div1').style.backgroundImage="url('66.bmp')";
+		document.querySelector('#div1').style.backgroundImage="url('66.bmp')";
+		document.querySelector('#div1').style.backgroundImage="url('6.bmp')";
+		var audio=new Audio('explosion.ogg'); audio.play();	
+		break;
+default: document.write("Unknown no<br />")
+}	
+switch (no2)
+{
+case 1: document.querySelector('#div2').style.backgroundImage="url('11.bmp')";
+		document.querySelector('#div2').style.backgroundImage="url('11.bmp')";
+		document.querySelector('#div2').style.backgroundImage="url('1.bmp')";
+		var audio=new Audio('explosion.ogg'); audio.play();	
+		break;
+case 2: document.querySelector('#div2').style.backgroundImage="url('22.bmp')";
+		document.querySelector('#div2').style.backgroundImage="url('22.bmp')";
+		document.querySelector('#div2').style.backgroundImage="url('2.bmp')";
+		var audio=new Audio('explosion.ogg'); audio.play();	
+		break;
+case 3: document.querySelector('#div2').style.backgroundImage="url('33.bmp')";
+		document.querySelector('#div2').style.backgroundImage="url('33.bmp')";
+		document.querySelector('#div2').style.backgroundImage="url('3.bmp')";
+		var audio=new Audio('explosion.ogg'); audio.play();	
+		break;
+case 4: document.querySelector('#div2').style.backgroundImage="url('44.bmp')";
+		document.querySelector('#div2').style.backgroundImage="url('44.bmp')";
+		document.querySelector('#div2').style.backgroundImage="url('4.bmp')";
+		var audio=new Audio('explosion.ogg'); audio.play();	
+		break;
+case 5: document.querySelector('#div2').style.backgroundImage="url('55.bmp')";
+		document.querySelector('#div2').style.backgroundImage="url('55.bmp')";
+		document.querySelector('#div2').style.backgroundImage="url('5.bmp')";
+		var audio=new Audio('explosion.ogg'); audio.play();	
+		break;
+case 6: document.querySelector('#div2').style.backgroundImage="url('66.bmp')";
+		document.querySelector('#div2').style.backgroundImage="url('66.bmp')";
+		document.querySelector('#div2').style.backgroundImage="url('6.bmp')";
+		var audio=new Audio('explosion.ogg'); audio.play();	
+		break;
+default: document.write("Unknown no<br/>")
+}	
+switch (no3)
+{
+case 1: document.querySelector('#div3').style.backgroundImage="url('11.bmp')";
+		document.querySelector('#div3').style.backgroundImage="url('11.bmp')";
+		document.querySelector('#div3').style.backgroundImage="url('1.bmp')";
+		var audio=new Audio('explosion.ogg'); audio.play();	
+		break;
+case 2: document.querySelector('#div3').style.backgroundImage="url('22.bmp')";
+		document.querySelector('#div3').style.backgroundImage="url('22.bmp')";
+		document.querySelector('#div3').style.backgroundImage="url('2.bmp')";
+		var audio=new Audio('explosion.ogg'); audio.play();	
+		break;
+case 3: document.querySelector('#div3').style.backgroundImage="url('33.bmp')";
+		document.querySelector('#div3').style.backgroundImage="url('33.bmp')";
+		document.querySelector('#div3').style.backgroundImage="url('3.bmp')";
+		var audio=new Audio('explosion.ogg'); audio.play();	
+		break;
+case 4: document.querySelector('#div3').style.backgroundImage="url('44.bmp')";
+		document.querySelector('#div3').style.backgroundImage="url('44.bmp')";
+		document.querySelector('#div3').style.backgroundImage="url('4.bmp')";
+		var audio=new Audio('explosion.ogg'); audio.play();	
+		break;
+case 5: document.querySelector('#div3').style.backgroundImage="url('55.bmp')";
+		document.querySelector('#div3').style.backgroundImage="url('55.bmp')";
+		document.querySelector('#div3').style.backgroundImage="url('5.bmp')";
+		var audio=new Audio('explosion.ogg'); audio.play();	
+		break;
+case 6: document.querySelector('#div3').style.backgroundImage="url('66.bmp')";
+		document.querySelector('#div3').style.backgroundImage="url('66.bmp')";
+		document.querySelector('#div3').style.backgroundImage="url('6.bmp')";
+		var audio=new Audio('explosion.ogg'); audio.play();	
+		break;
+default: document.write("Unknown no<br />")
+}	result = result + no1 + no2 + no3;
+	if( no1 == no2 & no2 == no3 )
+	{
+	var audio=new Audio('whistle.ogg'); 
+	audio.play(); 
+	alert("JACKPOT!! of 1000$ " + play.toUpperCase( ) )
+	result = result + 1000;
+	}
+	if( result > 1000 )
+	{
+	var audio=new Audio('whistle.ogg'); 
+	audio.play(); 
+	alert("YOU WIN!! " + play.toUpperCase( ) )
+	}
+	document.querySelector('#text2').value="OK!!" + play + " Your total score after 10$ deduction is " + result + "$.";
+	document.querySelector('#text2').style.font="bold italic 20px verdana";
+	document.querySelector('#text2').style.color="navy";
+	}
+document.getElementById('#pull').disable()=true;
+	}}
+</script>
+<p style="background-color:orange;font-size:20px;text-align:center;color:black">
+MADE BY PIYUSH TANAJI RAYRIKAR USING JAVASCRIPT ONLY,
+<BR> OBSERVE SOURCE CODE DIRECTLY FOR PROJECT PURPOSE
+<BR> EMAIL ID:PIYUSHRAYRIKAR9594@GMAIL.COM
+<BR>THANK YOU! & REMEMBER TO GIVE FEEDBACK
+<input type='button'  onclick='getFeedback();' value='Give Feedback' name='feedback' /></p>
+</body>
+</html>
