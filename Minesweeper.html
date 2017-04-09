@@ -1,0 +1,958 @@
+<html>
+<head>
+<title>Minesweeper</title>
+<script type="text/javascript">
+</script>
+<style>
+.pointer{
+		pointer-events:inherit;
+		}
+</style>
+</head>
+<body bgcolor="darkcyan">
+
+
+<b>
+<marquee height="70" bgcolor="dark green"  behavior="slide" direction="LTR" align="middle" width="900">
+<i><font face="Bookman Old Style" size=20>
+<font color=Blue>M i</font>
+<font color=Red>n e </font>
+<font color=Yellow>S w</font>
+<font color=Blue>e e</font>
+<font color=Green>p</font>
+<font color=Red>e r !</font>
+</font></i>
+<font size=6>
+<font face="Bookman Old Style" color=Blue>&nbsp;&nbsp;&nbsp;Save </font>
+<font color=Green>N</font>
+<font color=Red>a</font>
+<font color=Yellow>t</font>
+<font color=Blue>u</font>
+<font color=Green>r</font>
+<font color=Red>e</font>
+</font>
+<font size=5 color=Green>Games<sup>TM</sup></font>
+</marquee> 
+</b>
+
+<fieldset>
+<legend><h4>PLAYER-PROGRESS</h4></legend>
+<input type="button" style="height:50;width:100;" onClick="getplayer()" value="START" id="divstart">
+<input type="text" id="text2" size=70 readonly>
+</fieldset>
+
+<table>
+<tr>
+<td>
+<table border="7" bordercolor="red" cellpadding="2" cellspacing="2" background="Waterfall.gif">
+<tr>
+<td><div class="pointer" style="height:100;width:100;border:1px solid black" id="div1" ></div></td>
+<td><div style="height:100;width:100;border:1px solid black" id="div2"></div></td>
+<td><div style="height:100;width:100;border:1px solid black" id="div3"></div></td>
+<td><div style="height:100;width:100;border:1px solid black" id="div4"></div></td>
+<td><div style="height:100;width:100;border:1px solid black" id="div5"></div></td>
+<td><div style="height:100;width:100;border:1px solid black" id="div6"></div></td>
+</tr>
+<tr>
+<td><div style="height:100;width:100;border:1px solid black" id="div7"></div></td>
+<td><div style="height:100;width:100;border:1px solid black" id="div8"></div></td>
+<td><div style="height:100;width:100;border:1px solid black" id="div9"></div></td>
+<td><div style="height:100;width:100;border:1px solid black" id="div10"></div></td>
+<td><div style="height:100;width:100;border:1px solid black" id="div11"></div></td>
+<td><div style="height:100;width:100;border:1px solid black" id="div12"></div></td>
+</tr>
+<tr>
+<td><div style="height:100;width:100;border:1px solid black" id="div13"></div></td>
+<td><div style="height:100;width:100;border:1px solid black" id="div14"></div></td>
+<td><div style="height:100;width:100;border:1px solid black" id="div15"></div></td>
+<td><div style="height:100;width:100;border:1px solid black" id="div16"></div></td>
+<td><div style="height:100;width:100;border:1px solid black" id="div17"></div></td>
+<td><div style="height:100;width:100;border:1px solid black" id="div18"></div></td>
+</tr>
+<tr>
+<td><div style="height:100;width:100;border:1px solid black" id="div19"></div></td>
+<td><div style="height:100;width:100;border:1px solid black" id="div20"></div></td>
+<td><div style="height:100;width:100;border:1px solid black" id="div21"></div></td>
+<td><div style="height:100;width:100;border:1px solid black" id="div22"></div></td>
+<td><div style="height:100;width:100;border:1px solid black" id="div23"></div></td>
+<td><div style="height:100;width:100;border:1px solid black" id="div24"></div></td>
+</tr>
+</table>
+</td>
+<td>
+<b><font size=10>
+<font face="Bookman Old Style" color=Blue>Save </font><br>
+<font color=Green>N</font>
+<font color=Red>a</font>
+<font color=Yellow>t</font>
+<font color=Blue>u</font>
+<font color=Green>r</font>
+<font color=Red>e</font><br>
+</font></b>
+<font size=7 color=Green>Games<sup>TM</sup></font>
+
+</td>
+</tr>
+</table>
+<script>
+
+var b0=10,b1=0,b2=0,b3=0,b4=0,b5=0,b6=0,b7=0,b8=0,b9=0,b10=0,b11=0,b12=0,b13=0,b14=0,b15=0,b16=0,b17=0,b18=0,b19=0,b20=0,b21=0,b22=0,b23=0,b24=0;
+var result=0,p1;
+var play; 
+function getplayer()
+{
+	var p1 = prompt("Enter your First player Name : ", "your Name");
+	document.querySelector('#text2').value="WELCOME TO MINESWEEPER " + p1.toUpperCase( ) + " ,Your initial score will be " + result + ".";
+	document.querySelector('#text2').style.font="bold italic 20px verdana";
+	document.querySelector('#text2').style.color="brown";
+	play=p1;	secondFunction()
+	//document.write("WELCOME " + p1);
+	//var p2 = prompt("Enter your Second player Name : ", "your Name here");
+	//document.write("WELCOME " + p2);
+}
+function secondFunction(){
+if(document.querySelector)
+{
+	var vr1=document.querySelector('#div1')
+	vr1.onmouseover=function(){
+if(b1<1){
+	var no;
+	no=Math.floor(Math.random()*11)
+	if(no<7)
+	{ 
+	no=no-5;document.bgColor="brown";		
+	document.querySelector('#div1').style.background="cyan";	
+	document.querySelector('#div1').style.background="-moz-radial-gradient(50% 50%,farthest-side,#003300,#fff)";
+	var audio=new Audio('explosion.ogg'); audio.play();	
+	alert("Destroyed!! your score is" + no )
+	document.bgColor="brown_red";
+	}
+	if(no>6)
+	{
+	document.bgColor="yellow";
+	document.querySelector('#div1').style.font="italic small-caps bold 95px georgia";
+	document.querySelector('#div1').style.color="navy";	
+	document.querySelector('#div1').style.background="cyan";	
+	document.querySelector('#div1').innerHTML=no;	
+	var audio=new Audio('click.ogg'); audio.play();alert("SAFE!! your score is" + no )
+	document.bgColor="light_green";
+	}
+	result= result + no ;if( result > 70 ){var audio=new Audio('whistle.ogg'); audio.play();alert("YOU WIN!! " + play.toUpperCase( ) )}
+	document.querySelector('#text2').value="OK!!" + play + " Your total score is " + result + ".";
+	document.querySelector('#text2').style.font="bold italic 20px verdana";
+	document.querySelector('#text2').style.color="navy";
+	b1=10;}
+	vr1.onmouseout=function(){
+	document.getElementbyId('#div1').disable=true;
+	}
+}}
+if(document.querySelector)
+{	
+	var vr2=document.querySelector('#div2')
+	vr2.onmouseover=function(){
+if(b2<1){
+	var no;
+	no=Math.floor(Math.random()*11)
+	if(no<7)
+	{ 
+	no=no-5;document.bgColor="brown";		
+	document.querySelector('#div2').style.background="cyan";	
+	document.querySelector('#div2').style.background="-moz-radial-gradient(50% 50%,farthest-side,#003300,#fff)";
+	var audio=new Audio('explosion.ogg'); audio.play();	
+	alert("Destroyed!! your score is" + no )
+	document.bgColor="brown_red";
+	}
+	if(no>6)
+	{
+	document.bgColor="yellow";
+	document.querySelector('#div2').style.font="italic small-caps bold 95px georgia";
+	document.querySelector('#div2').style.color="navy";	
+	document.querySelector('#div2').style.background="cyan";	
+	document.querySelector('#div2').innerHTML=no;	
+	var audio=new Audio('click.ogg'); audio.play();alert("SAFE!! your score is" + no )
+	document.bgColor="light_green";
+	}
+	result= result + no ;if( result > 70 ){var audio=new Audio('whistle.ogg'); audio.play();alert("YOU WIN!! " + play.toUpperCase( ) )}
+	document.querySelector('#text2').value="OK!!" + play + " Your total score is " + result + ".";
+	document.querySelector('#text2').style.font="bold italic 20px verdana";
+	document.querySelector('#text2').style.color="navy";
+	b2=10;}
+	vr2.onmouseout=function(){
+	document.getElementbyId('#div2').disable=true;
+	}
+}}
+if(document.querySelector)
+{		var vr3=document.querySelector('#div3')
+	vr3.onmouseover=function(){
+if(b3<1){
+	var no;
+	no=Math.floor(Math.random()*11)
+	if(no<7)
+	{ 
+	no=no-5;document.bgColor="brown";		
+	document.querySelector('#div3').style.background="cyan";	
+	document.querySelector('#div3').style.background="-moz-radial-gradient(50% 50%,farthest-side,#003300,#fff)";
+	var audio=new Audio('explosion.ogg'); audio.play();	
+	alert("Destroyed!! your score is" + no )
+	document.bgColor="brown_red";
+	}
+	if(no>6)
+	{
+	document.bgColor="yellow";
+	document.querySelector('#div3').style.font="italic small-caps bold 95px georgia";
+	document.querySelector('#div3').style.color="navy";	
+	document.querySelector('#div3').style.background="cyan";	
+	document.querySelector('#div3').innerHTML=no;	
+	var audio=new Audio('click.ogg'); audio.play();alert("SAFE!! your score is" + no )
+	document.bgColor="light_green";
+	}
+	result= result + no ;if( result > 70 ){var audio=new Audio('whistle.ogg'); audio.play();alert("YOU WIN!! " + play.toUpperCase( ) )}
+	document.querySelector('#text2').value="OK!!" + play + " Your total score is " + result + ".";
+	document.querySelector('#text2').style.font="bold italic 20px verdana";
+	document.querySelector('#text2').style.color="navy";
+	b3=10;}
+	vr3.onmouseout=function(){
+	document.getElementbyId('#div3').disable=true;
+	}
+}}
+if(document.querySelector)
+{		var vr4=document.querySelector('#div4')
+	vr4.onmouseover=function(){
+if(b4<1){
+	var no;
+	no=Math.floor(Math.random()*11)
+	if(no<7)
+	{ 
+	no=no-5;document.bgColor="brown";		
+	document.querySelector('#div4').style.background="cyan";	
+	document.querySelector('#div4').style.background="-moz-radial-gradient(50% 50%,farthest-side,#003300,#fff)";
+	var audio=new Audio('explosion.ogg'); audio.play();	
+	alert("Destroyed!! your score is" + no )
+	document.bgColor="brown_red";
+	}
+	if(no>6)
+	{
+	document.bgColor="yellow";
+	document.querySelector('#div4').style.font="italic small-caps bold 95px georgia";
+	document.querySelector('#div4').style.color="navy";	
+	document.querySelector('#div4').style.background="cyan";	
+	document.querySelector('#div4').innerHTML=no;	
+	var audio=new Audio('click.ogg'); audio.play();alert("SAFE!! your score is" + no )
+	document.bgColor="light_green";
+	}
+	result= result + no ;if( result > 70 ){var audio=new Audio('whistle.ogg'); audio.play();alert("YOU WIN!! " + play.toUpperCase( ) )}
+	document.querySelector('#text2').value="OK!!" + play + " Your total score is " + result + ".";
+	document.querySelector('#text2').style.font="bold italic 20px verdana";
+	document.querySelector('#text2').style.color="navy";
+	b4=10;}
+	vr4.onmouseout=function(){
+	document.getElementbyId('#div4').disable=true;
+	}
+}}
+if(document.querySelector)
+{		var vr5=document.querySelector('#div5')
+	vr5.onmouseover=function(){
+if(b5<1){
+	var no;
+	no=Math.floor(Math.random()*11)
+	if(no<7)
+	{ 
+	no=no-5;document.bgColor="brown";		
+	document.querySelector('#div5').style.background="cyan";	
+	document.querySelector('#div5').style.background="-moz-radial-gradient(50% 50%,farthest-side,#003300,#fff)";
+	var audio=new Audio('explosion.ogg'); audio.play();	
+	alert("Destroyed!! your score is" + no )
+	document.bgColor="brown_red";
+	}
+	if(no>6)
+	{
+	document.bgColor="yellow";
+	document.querySelector('#div5').style.font="italic small-caps bold 95px georgia";
+	document.querySelector('#div5').style.color="navy";	
+	document.querySelector('#div5').style.background="cyan";	
+	document.querySelector('#div5').innerHTML=no;	
+	var audio=new Audio('click.ogg'); audio.play();alert("SAFE!! your score is" + no )
+	document.bgColor="light_green";
+	}
+	result= result + no ;if( result > 70 ){var audio=new Audio('whistle.ogg'); audio.play();alert("YOU WIN!! " + play.toUpperCase( ) )}
+	document.querySelector('#text2').value="OK!!" + play + " Your total score is " + result + ".";
+	document.querySelector('#text2').style.font="bold italic 20px verdana";
+	document.querySelector('#text2').style.color="navy";
+	b5=10;}
+	vr5.onmouseout=function(){
+	document.getElementbyId('#div5').disable=true;
+	}
+}}
+if(document.querySelector)
+{		var vr6=document.querySelector('#div6')
+	vr6.onmouseover=function(){
+if(b6<1){
+	var no;
+	no=Math.floor(Math.random()*11)
+	if(no<7)
+	{ 
+	no=no-5;document.bgColor="brown";		
+	document.querySelector('#div6').style.background="cyan";	
+	document.querySelector('#div6').style.background="-moz-radial-gradient(50% 50%,farthest-side,#003300,#fff)";
+	var audio=new Audio('explosion.ogg'); audio.play();	
+	alert("Destroyed!! your score is" + no )
+	document.bgColor="brown_red";
+	}
+	if(no>6)
+	{
+	document.bgColor="yellow";
+	document.querySelector('#div6').style.font="italic small-caps bold 95px georgia";
+	document.querySelector('#div6').style.color="navy";	
+	document.querySelector('#div6').style.background="cyan";	
+	document.querySelector('#div6').innerHTML=no;	
+	var audio=new Audio('click.ogg'); audio.play();alert("SAFE!! your score is" + no )
+	document.bgColor="light_green";
+	}
+	result= result + no ;if( result > 70 ){var audio=new Audio('whistle.ogg'); audio.play();alert("YOU WIN!! " + play.toUpperCase( ) )}
+	document.querySelector('#text2').value="OK!!" + play + " Your total score is " + result + ".";
+	document.querySelector('#text2').style.font="bold italic 20px verdana";
+	document.querySelector('#text2').style.color="navy";
+	b6=10;}
+	vr6.onmouseout=function(){
+	document.getElementbyId('#div6').disable=true;
+	}
+}}
+if(document.querySelector)
+{		var vr7=document.querySelector('#div7')
+	vr7.onmouseover=function(){
+if(b7<1){
+	var no;
+	no=Math.floor(Math.random()*11)
+	if(no<7)
+	{ 
+	no=no-5;document.bgColor="brown";		
+	document.querySelector('#div7').style.background="cyan";	
+	document.querySelector('#div7').style.background="-moz-radial-gradient(50% 50%,farthest-side,#003300,#fff)";
+	var audio=new Audio('explosion.ogg'); audio.play();	
+	alert("Destroyed!! your score is" + no )
+	document.bgColor="brown_red";
+	}
+	if(no>6)
+	{
+	document.bgColor="yellow";
+	document.querySelector('#div7').style.font="italic small-caps bold 95px georgia";
+	document.querySelector('#div7').style.color="navy";	
+	document.querySelector('#div7').style.background="cyan";	
+	document.querySelector('#div7').innerHTML=no;	
+	var audio=new Audio('click.ogg'); audio.play();alert("SAFE!! your score is" + no )
+	document.bgColor="light_green";
+	}
+	result= result + no ;if( result > 70 ){var audio=new Audio('whistle.ogg'); audio.play();alert("YOU WIN!! " + play.toUpperCase( ) )}
+	document.querySelector('#text2').value="OK!!" + play + " Your total score is " + result + ".";
+	document.querySelector('#text2').style.font="bold italic 20px verdana";
+	document.querySelector('#text2').style.color="navy";
+	b7=10;}
+	vr7.onmouseout=function(){
+	document.getElementbyId('#div7').disable=true;
+	}
+}}
+if(document.querySelector)
+{		var vr8=document.querySelector('#div8')
+	vr8.onmouseover=function(){
+if(b8<1){
+	var no;
+	no=Math.floor(Math.random()*11)
+	if(no<7)
+	{ 
+	no=no-5;document.bgColor="brown";		
+	document.querySelector('#div8').style.background="cyan";	
+	document.querySelector('#div8').style.background="-moz-radial-gradient(50% 50%,farthest-side,#003300,#fff)";
+	var audio=new Audio('explosion.ogg'); audio.play();	
+	alert("Destroyed!! your score is" + no )
+	document.bgColor="brown_red";
+	}
+	if(no>6)
+	{
+	document.bgColor="yellow";
+	document.querySelector('#div8').style.font="italic small-caps bold 95px georgia";
+	document.querySelector('#div8').style.color="navy";	
+	document.querySelector('#div8').style.background="cyan";	
+	document.querySelector('#div8').innerHTML=no;	
+	var audio=new Audio('click.ogg'); audio.play();alert("SAFE!! your score is" + no )
+	document.bgColor="light_green";
+	}
+	result= result + no ;if( result > 70 ){var audio=new Audio('whistle.ogg'); audio.play();alert("YOU WIN!! " + play.toUpperCase( ) )}
+	document.querySelector('#text2').value="OK!!" + play + " Your total score is " + result + ".";
+	document.querySelector('#text2').style.font="bold italic 20px verdana";
+	document.querySelector('#text2').style.color="navy";
+	b8=10;}
+	vr8.onmouseout=function(){
+	document.getElementbyId('#div8').disable=true;
+	}
+}}
+if(document.querySelector)
+{		var vr9=document.querySelector('#div9')
+	vr9.onmouseover=function(){
+if(b9<1){
+	var no;
+	no=Math.floor(Math.random()*11)
+	if(no<7)
+	{ 
+	no=no-5;document.bgColor="brown";		
+	document.querySelector('#div9').style.background="cyan";	
+	document.querySelector('#div9').style.background="-moz-radial-gradient(50% 50%,farthest-side,#003300,#fff)";
+	var audio=new Audio('explosion.ogg'); audio.play();	
+	alert("Destroyed!! your score is" + no )
+	document.bgColor="brown_red";
+	}
+	if(no>6)
+	{
+	document.bgColor="yellow";
+	document.querySelector('#div9').style.font="italic small-caps bold 95px georgia";
+	document.querySelector('#div9').style.color="navy";	
+	document.querySelector('#div9').style.background="cyan";	
+	document.querySelector('#div9').innerHTML=no;	
+	var audio=new Audio('click.ogg'); audio.play();alert("SAFE!! your score is" + no )
+	document.bgColor="light_green";
+	}
+	result= result + no ;if( result > 70 ){var audio=new Audio('whistle.ogg'); audio.play();alert("YOU WIN!! " + play.toUpperCase( ) )}
+	document.querySelector('#text2').value="OK!!" + play + " Your total score is " + result + ".";
+	document.querySelector('#text2').style.font="bold italic 20px verdana";
+	document.querySelector('#text2').style.color="navy";
+	b9=10;}
+	vr9.onmouseout=function(){
+	document.getElementbyId('#div9').disable=true;
+	}
+}}
+if(document.querySelector)
+{		var vr10=document.querySelector('#div10')
+	vr10.onmouseover=function(){
+if(b10<1){
+	var no;
+	no=Math.floor(Math.random()*11)
+	if(no<7)
+	{ 
+	no=no-5;document.bgColor="brown";		
+	document.querySelector('#div10').style.background="cyan";	
+	document.querySelector('#div10').style.background="-moz-radial-gradient(50% 50%,farthest-side,#003300,#fff)";
+	var audio=new Audio('explosion.ogg'); audio.play();	
+	alert("Destroyed!! your score is" + no )
+	document.bgColor="brown_red";
+	}
+	if(no>6)
+	{
+	document.bgColor="yellow";
+	document.querySelector('#div10').style.font="italic small-caps bold 95px georgia";
+	document.querySelector('#div10').style.color="navy";	
+	document.querySelector('#div10').style.background="cyan";	
+	document.querySelector('#div10').innerHTML=no;	
+	var audio=new Audio('click.ogg'); audio.play();alert("SAFE!! your score is" + no )
+	document.bgColor="light_green";
+	}
+	result= result + no ;if( result > 70 ){var audio=new Audio('whistle.ogg'); audio.play();alert("YOU WIN!! " + play.toUpperCase( ) )}
+	document.querySelector('#text2').value="OK!!" + play + " Your total score is " + result + ".";
+	document.querySelector('#text2').style.font="bold italic 20px verdana";
+	document.querySelector('#text2').style.color="navy";
+	b10=10;}
+	vr10.onmouseout=function(){
+	document.getElementbyId('#div10').disable=true;
+	}
+}}
+if(document.querySelector)
+{		var vr11=document.querySelector('#div11')
+	vr11.onmouseover=function(){
+if(b11<1){
+	var no;
+	no=Math.floor(Math.random()*11)
+	if(no<7)
+	{ 
+	no=no-5;document.bgColor="brown";		
+	document.querySelector('#div11').style.background="cyan";	
+	document.querySelector('#div11').style.background="-moz-radial-gradient(50% 50%,farthest-side,#003300,#fff)";
+	var audio=new Audio('explosion.ogg'); audio.play();	
+	alert("Destroyed!! your score is" + no )
+	document.bgColor="brown_red";
+	}
+	if(no>6)
+	{
+	document.bgColor="yellow";
+	document.querySelector('#div11').style.font="italic small-caps bold 95px georgia";
+	document.querySelector('#div11').style.color="navy";	
+	document.querySelector('#div11').style.background="cyan";	
+	document.querySelector('#div11').innerHTML=no;	
+	var audio=new Audio('click.ogg'); audio.play();alert("SAFE!! your score is" + no )
+	document.bgColor="light_green";
+	}
+	result= result + no ;if( result > 70 ){var audio=new Audio('whistle.ogg'); audio.play();alert("YOU WIN!! " + play.toUpperCase( ) )}
+	document.querySelector('#text2').value="OK!!" + play + " Your total score is " + result + ".";
+	document.querySelector('#text2').style.font="bold italic 20px verdana";
+	document.querySelector('#text2').style.color="navy";
+	b11=10;}
+	vr11.onmouseout=function(){
+	document.getElementbyId('#div11').disable=true;
+	}
+}}
+if(document.querySelector)
+{		var vr12=document.querySelector('#div12')
+	vr12.onmouseover=function(){
+if(b12<1){
+	var no;
+no=Math.floor(Math.random()*11)
+	if(no<7)
+	{ 
+	no=no-5;document.bgColor="brown";		
+	document.querySelector('#div12').style.background="cyan";	
+	document.querySelector('#div12').style.background="-moz-radial-gradient(50% 50%,farthest-side,#003300,#fff)";
+	var audio=new Audio('explosion.ogg'); audio.play();	
+	alert("Destroyed!! your score is" + no )
+	document.bgColor="brown_red";
+	}
+	if(no>6)
+	{
+	document.bgColor="yellow";
+	document.querySelector('#div12').style.font="italic small-caps bold 95px georgia";
+	document.querySelector('#div12').style.color="navy";	
+	document.querySelector('#div12').style.background="cyan";	
+	document.querySelector('#div12').innerHTML=no;	
+	var audio=new Audio('click.ogg'); audio.play();alert("SAFE!! your score is" + no )
+	document.bgColor="light_green";
+	}
+	result= result + no ;if( result > 70 ){var audio=new Audio('whistle.ogg'); audio.play();alert("YOU WIN!! " + play.toUpperCase( ) )}
+	document.querySelector('#text2').value="OK!!" + play + " Your total score is " + result + ".";
+	document.querySelector('#text2').style.font="bold italic 20px verdana";
+	document.querySelector('#text2').style.color="navy";
+	b12=10;}
+	vr12.onmouseout=function(){
+	document.getElementbyId('#div12').disable=true;
+	}
+}}
+if(document.querySelector)
+{		var vr13=document.querySelector('#div13')
+	vr13.onmouseover=function(){
+if(b13<1){
+	var no;
+	no=Math.floor(Math.random()*11)
+	if(no<7)
+	{ 
+	no=no-5;document.bgColor="brown";		
+	document.querySelector('#div13').style.background="cyan";	
+	document.querySelector('#div13').style.background="-moz-radial-gradient(50% 50%,farthest-side,#003300,#fff)";
+	var audio=new Audio('explosion.ogg'); audio.play();	
+	alert("Destroyed!! your score is" + no )
+	document.bgColor="brown_red";
+	}
+	if(no>6)
+	{
+	document.bgColor="yellow";
+	document.querySelector('#div13').style.font="italic small-caps bold 95px georgia";
+	document.querySelector('#div13').style.color="navy";	
+	document.querySelector('#div13').style.background="cyan";	
+	document.querySelector('#div13').innerHTML=no;	
+	var audio=new Audio('click.ogg'); audio.play();alert("SAFE!! your score is" + no )
+	document.bgColor="light_green";
+	}
+	result= result + no ;if( result > 70 ){var audio=new Audio('whistle.ogg'); audio.play();alert("YOU WIN!! " + play.toUpperCase( ) )}
+	document.querySelector('#text2').value="OK!!" + play + " Your total score is " + result + ".";
+	document.querySelector('#text2').style.font="bold italic 20px verdana";
+	document.querySelector('#text2').style.color="navy";
+	b13=10;}
+	vr13.onmouseout=function(){
+	document.getElementbyId('#div13').disable=true;
+	}
+}}
+if(document.querySelector)
+{		var vr14=document.querySelector('#div14')
+	vr14.onmouseover=function(){
+if(b14<1){
+	var no;
+no=Math.floor(Math.random()*11)
+	if(no<7)
+	{ 
+	no=no-5;document.bgColor="brown";		
+	document.querySelector('#div14').style.background="cyan";	
+	document.querySelector('#div14').style.background="-moz-radial-gradient(50% 50%,farthest-side,#003300,#fff)";
+	var audio=new Audio('explosion.ogg'); audio.play();	
+	alert("Destroyed!! your score is" + no )
+	document.bgColor="brown_red";
+	}
+	if(no>6)
+	{
+	document.bgColor="yellow";
+	document.querySelector('#div14').style.font="italic small-caps bold 95px georgia";
+	document.querySelector('#div14').style.color="navy";	
+	document.querySelector('#div14').style.background="cyan";	
+	document.querySelector('#div14').innerHTML=no;	
+	var audio=new Audio('click.ogg'); audio.play();alert("SAFE!! your score is" + no )
+	document.bgColor="light_green";
+	}
+	result= result + no ;if( result > 70 ){var audio=new Audio('whistle.ogg'); audio.play();alert("YOU WIN!! " + play.toUpperCase( ) )}
+	document.querySelector('#text2').value="OK!!" + play + " Your total score is " + result + ".";
+	document.querySelector('#text2').style.font="bold italic 20px verdana";
+	document.querySelector('#text2').style.color="navy";
+	b14=10;}
+	vr14.onmouseout=function(){
+	document.getElementbyId('#div14').disable=true;
+	}
+}}
+if(document.querySelector)
+{		var vr15=document.querySelector('#div15')
+	vr15.onmouseover=function(){
+if(b15<1){
+	var no;
+no=Math.floor(Math.random()*11)
+	if(no<7)
+	{ 
+	no=no-5;document.bgColor="brown";		
+	document.querySelector('#div15').style.background="cyan";	
+	document.querySelector('#div15').style.background="-moz-radial-gradient(50% 50%,farthest-side,#003300,#fff)";
+	var audio=new Audio('explosion.ogg'); audio.play();	
+	alert("Destroyed!! your score is" + no )
+	document.bgColor="brown_red";
+	}
+	if(no>6)
+	{
+	document.bgColor="yellow";
+	document.querySelector('#div15').style.font="italic small-caps bold 95px georgia";
+	document.querySelector('#div15').style.color="navy";	
+	document.querySelector('#div15').style.background="cyan";	
+	document.querySelector('#div15').innerHTML=no;	
+	var audio=new Audio('click.ogg'); audio.play();alert("SAFE!! your score is" + no )
+	document.bgColor="light_green";
+	}
+	result= result + no ;if( result > 70 ){var audio=new Audio('whistle.ogg'); audio.play();alert("YOU WIN!! " + play.toUpperCase( ) )}
+	document.querySelector('#text2').value="OK!!" + play + " Your total score is " + result + ".";
+	document.querySelector('#text2').style.font="bold italic 20px verdana";
+	document.querySelector('#text2').style.color="navy";
+	b15=10;}
+	vr15.onmouseout=function(){
+	document.getElementbyId('#div15').disable=true;
+	}
+}}
+if(document.querySelector)
+{		var vr16=document.querySelector('#div16')
+	vr16.onmouseover=function(){
+if(b16<1){
+	var no;
+no=Math.floor(Math.random()*11)
+	if(no<7)
+	{ 
+	no=no-5;document.bgColor="brown";		
+	document.querySelector('#div16').style.background="cyan";	
+	document.querySelector('#div16').style.background="-moz-radial-gradient(50% 50%,farthest-side,#003300,#fff)";
+	var audio=new Audio('explosion.ogg'); audio.play();	
+	alert("Destroyed!! your score is" + no )
+	document.bgColor="brown_red";
+	}
+	if(no>6)
+	{
+	document.bgColor="yellow";
+	document.querySelector('#div16').style.font="italic small-caps bold 95px georgia";
+	document.querySelector('#div16').style.color="navy";	
+	document.querySelector('#div16').style.background="cyan";	
+	document.querySelector('#div16').innerHTML=no;	
+	var audio=new Audio('click.ogg'); audio.play();alert("SAFE!! your score is" + no )
+	document.bgColor="light_green";
+	}
+	result= result + no ;if( result > 70 ){var audio=new Audio('whistle.ogg'); audio.play();alert("YOU WIN!! " + play.toUpperCase( ) )}
+	document.querySelector('#text2').value="OK!!" + play + " Your total score is " + result + ".";
+	document.querySelector('#text2').style.font="bold italic 20px verdana";
+	document.querySelector('#text2').style.color="navy";
+	b16=10;}
+	vr16.onmouseout=function(){
+	document.getElementbyId('#div16').disable=true;
+	}
+}}
+if(document.querySelector)
+{		var vr17=document.querySelector('#div17')
+	vr17.onmouseover=function(){
+if(b17<1){
+	var no;
+no=Math.floor(Math.random()*11)
+	if(no<7)
+	{ 
+	no=no-5;document.bgColor="brown";		
+	document.querySelector('#div17').style.background="cyan";	
+	document.querySelector('#div17').style.background="-moz-radial-gradient(50% 50%,farthest-side,#003300,#fff)";
+	var audio=new Audio('explosion.ogg'); audio.play();	
+	alert("Destroyed!! your score is" + no )
+	document.bgColor="brown_red";
+	}
+	if(no>6)
+	{
+	document.bgColor="yellow";
+	document.querySelector('#div17').style.font="italic small-caps bold 95px georgia";
+	document.querySelector('#div17').style.color="navy";	
+	document.querySelector('#div17').style.background="cyan";	
+	document.querySelector('#div17').innerHTML=no;	
+	var audio=new Audio('click.ogg'); audio.play();alert("SAFE!! your score is" + no )
+	document.bgColor="light_green";
+	}
+	result= result + no ;if( result > 70 ){var audio=new Audio('whistle.ogg'); audio.play();alert("YOU WIN!! " + play.toUpperCase( ) )}
+	document.querySelector('#text2').value="OK!!" + play + " Your total score is " + result + ".";
+	document.querySelector('#text2').style.font="bold italic 20px verdana";
+	document.querySelector('#text2').style.color="navy";
+	b17=10;}
+	vr17.onmouseout=function(){
+	document.getElementbyId('#div17').disable=true;
+	}
+}}
+if(document.querySelector)
+{		var vr18=document.querySelector('#div18')
+	vr18.onmouseover=function(){
+if(b18<1){
+	var no;
+no=Math.floor(Math.random()*11)
+	if(no<7)
+	{ 
+	no=no-5;document.bgColor="brown";		
+	document.querySelector('#div18').style.background="cyan";	
+	document.querySelector('#div18').style.background="-moz-radial-gradient(50% 50%,farthest-side,#003300,#fff)";
+	var audio=new Audio('explosion.ogg'); audio.play();	
+	alert("Destroyed!! your score is" + no )
+	document.bgColor="brown_red";
+	}
+	if(no>6)
+	{
+	document.bgColor="yellow";
+	document.querySelector('#div18').style.font="italic small-caps bold 95px georgia";
+	document.querySelector('#div18').style.color="navy";	
+	document.querySelector('#div18').style.background="cyan";	
+	document.querySelector('#div18').innerHTML=no;	
+	var audio=new Audio('click.ogg'); audio.play();alert("SAFE!! your score is" + no )
+	document.bgColor="light_green";
+	}
+	result= result + no ;if( result > 70 ){var audio=new Audio('whistle.ogg'); audio.play();alert("YOU WIN!! " + play.toUpperCase( ) )}
+	document.querySelector('#text2').value="OK!!" + play + " Your total score is " + result + ".";
+	document.querySelector('#text2').style.font="bold italic 20px verdana";
+	document.querySelector('#text2').style.color="navy";
+	b18=10;}
+	vr18.onmouseout=function(){
+	document.getElementbyId('#div18').disable=true;
+	}
+}}
+if(document.querySelector)
+{		var vr19=document.querySelector('#div19')
+	vr19.onmouseover=function(){
+if(b19<1){
+	var no;
+no=Math.floor(Math.random()*11)
+	if(no<7)
+	{ 
+	no=no-5;document.bgColor="brown";		
+	document.querySelector('#div19').style.background="cyan";	
+	document.querySelector('#div19').style.background="-moz-radial-gradient(50% 50%,farthest-side,#003300,#fff)";
+	var audio=new Audio('explosion.ogg'); audio.play();	
+	alert("Destroyed!! your score is" + no )
+	document.bgColor="brown_red";
+	}
+	if(no>6)
+	{
+	document.bgColor="yellow";
+	document.querySelector('#div19').style.font="italic small-caps bold 95px georgia";
+	document.querySelector('#div19').style.color="navy";	
+	document.querySelector('#div19').style.background="cyan";	
+	document.querySelector('#div19').innerHTML=no;	
+	var audio=new Audio('click.ogg'); audio.play();alert("SAFE!! your score is" + no )
+	document.bgColor="light_green";
+	}
+	result= result + no ;if( result > 70 ){var audio=new Audio('whistle.ogg'); audio.play();alert("YOU WIN!! " + play.toUpperCase( ) )}
+	document.querySelector('#text2').value="OK!!" + play + " Your total score is " + result + ".";
+	document.querySelector('#text2').style.font="bold italic 20px verdana";
+	document.querySelector('#text2').style.color="navy";
+	b19=10;}
+	vr19.onmouseout=function(){
+	document.getElementbyId('#div19').disable=true;
+	}
+}}
+if(document.querySelector)
+{		var vr20=document.querySelector('#div20')
+	vr20.onmouseover=function(){
+if(b20<1){
+	var no;
+no=Math.floor(Math.random()*11)
+	if(no<7)
+	{ 
+	no=no-5;document.bgColor="brown";		
+	document.querySelector('#div20').style.background="cyan";	
+	document.querySelector('#div20').style.background="-moz-radial-gradient(50% 50%,farthest-side,#003300,#fff)";
+	var audio=new Audio('explosion.ogg'); audio.play();	
+	alert("Destroyed!! your score is" + no )
+	document.bgColor="brown_red";
+	}
+	if(no>6)
+	{
+	document.bgColor="yellow";
+	document.querySelector('#div20').style.font="italic small-caps bold 95px georgia";
+	document.querySelector('#div20').style.color="navy";	
+	document.querySelector('#div20').style.background="cyan";	
+	document.querySelector('#div20').innerHTML=no;	
+	var audio=new Audio('click.ogg'); audio.play();alert("SAFE!! your score is" + no )
+	document.bgColor="light_green";
+	}
+	result= result + no ;if( result > 70 ){var audio=new Audio('whistle.ogg'); audio.play();alert("YOU WIN!! " + play.toUpperCase( ) )}
+	document.querySelector('#text2').value="OK!!" + play + " Your total score is " + result + ".";
+	document.querySelector('#text2').style.font="bold italic 20px verdana";
+	document.querySelector('#text2').style.color="navy";
+	b20=10;}
+	vr20.onmouseout=function(){
+	document.getElementbyId('#div20').disable=true;
+	}
+}}
+if(document.querySelector)
+{		var vr21=document.querySelector('#div21')
+	vr21.onmouseover=function(){
+if(b21<1){
+	var no;
+	no=Math.floor(Math.random()*11)
+	if(no<7)
+	{ 
+	no=no-5;document.bgColor="brown";		
+	document.querySelector('#div21').style.background="cyan";	
+	document.querySelector('#div21').style.background="-moz-radial-gradient(50% 50%,farthest-side,#003300,#fff)";
+	var audio=new Audio('explosion.ogg'); audio.play();	
+	alert("Destroyed!! your score is" + no )
+	document.bgColor="brown_red";
+	}
+	if(no>6)
+	{
+	document.bgColor="yellow";
+	document.querySelector('#div21').style.font="italic small-caps bold 95px georgia";
+	document.querySelector('#div21').style.color="navy";	
+	document.querySelector('#div21').style.background="cyan";	
+	document.querySelector('#div21').innerHTML=no;	
+	var audio=new Audio('click.ogg'); audio.play();alert("SAFE!! your score is" + no )
+	document.bgColor="light_green";
+	}
+	result= result + no ;if( result > 70 ){var audio=new Audio('whistle.ogg'); audio.play();alert("YOU WIN!! " + play.toUpperCase( ) )}
+	document.querySelector('#text2').value="OK!!" + play + " Your total score is " + result + ".";
+	document.querySelector('#text2').style.font="bold italic 20px verdana";
+	document.querySelector('#text2').style.color="navy";
+	b21=10;}
+	vr21.onmouseout=function(){
+	document.getElementbyId('#div21').disable=true;
+	}
+}}
+if(document.querySelector)
+{		var vr22=document.querySelector('#div22')
+	vr22.onmouseover=function(){
+if(b22<1){
+	var no;
+	no=Math.floor(Math.random()*11)
+	if(no<7)
+	{ 
+	no=no-5;document.bgColor="brown";		
+	document.querySelector('#div22').style.background="cyan";	
+	document.querySelector('#div22').style.background="-moz-radial-gradient(50% 50%,farthest-side,#003300,#fff)";
+	var audio=new Audio('explosion.ogg'); audio.play();	
+	alert("Destroyed!! your score is" + no )
+	document.bgColor="brown_red";
+	}
+	if(no>6)
+	{
+	document.bgColor="yellow";
+	document.querySelector('#div22').style.font="italic small-caps bold 95px georgia";
+	document.querySelector('#div22').style.color="navy";	
+	document.querySelector('#div22').style.background="cyan";	
+	document.querySelector('#div22').innerHTML=no;	
+	var audio=new Audio('click.ogg'); audio.play();alert("SAFE!! your score is" + no )
+	document.bgColor="light_green";
+	}
+	result= result + no ;if( result > 70 ){var audio=new Audio('whistle.ogg'); audio.play();alert("YOU WIN!! " + play.toUpperCase( ) )}
+	document.querySelector('#text2').value="OK!!" + play + " Your total score is " + result + ".";
+	document.querySelector('#text2').style.font="bold italic 20px verdana";
+	document.querySelector('#text2').style.color="navy";
+	b22=10;}
+	vr22.onmouseout=function(){
+	document.getElementbyId('#div22').disable=true;
+	}
+}}
+if(document.querySelector)
+{		var vr23=document.querySelector('#div23')
+	vr23.onmouseover=function(){
+if(b23<1){
+	var no;
+	no=Math.floor(Math.random()*11)
+	if(no<7)
+	{ 
+	no=no-5;document.bgColor="brown";		
+	document.querySelector('#div23').style.background="cyan";	
+	document.querySelector('#div23').style.background="-moz-radial-gradient(50% 50%,farthest-side,#003300,#fff)";
+	var audio=new Audio('explosion.ogg'); audio.play();	
+	alert("Destroyed!! your score is" + no )
+	document.bgColor="brown_red";
+	}
+	if(no>6)
+	{
+	document.bgColor="yellow";
+	document.querySelector('#div23').style.font="italic small-caps bold 95px georgia";
+	document.querySelector('#div23').style.color="navy";	
+	document.querySelector('#div23').style.background="cyan";	
+	document.querySelector('#div23').innerHTML=no;	
+	var audio=new Audio('click.ogg'); audio.play();alert("SAFE!! your score is" + no )
+	document.bgColor="light_green";
+	}
+	result= result + no ;if( result > 70 ){var audio=new Audio('whistle.ogg'); audio.play();alert("YOU WIN!! " + play.toUpperCase( ) )}
+	document.querySelector('#text2').value="OK!!" + play + " Your total score is " + result + ".";
+	document.querySelector('#text2').style.font="bold italic 20px verdana";
+	document.querySelector('#text2').style.color="navy";
+	b23=10;}
+	vr23.onmouseout=function(){
+	document.getElementbyId('#div23').disable=true;
+	}
+}}
+if(document.querySelector)
+{		var vr24=document.querySelector('#div24')
+	vr24.onmouseover=function(){
+if(b24<1){
+	var no;
+	no=Math.floor(Math.random()*11)
+	if(no<7)
+	{ 
+	no=no-5;document.bgColor="brown";		
+	document.querySelector('#div24').style.background="cyan";	
+	document.querySelector('#div24').style.background="-moz-radial-gradient(50% 50%,farthest-side,#003300,#fff)";
+	var audio=new Audio('explosion.ogg'); audio.play();	
+	alert("Destroyed!! your score is" + no )
+	document.bgColor="brown_red";
+	}
+	if(no>6)
+	{
+	document.bgColor="yellow";
+	document.querySelector('#div24').style.font="italic small-caps bold 95px georgia";
+	document.querySelector('#div24').style.color="navy";	
+	document.querySelector('#div24').style.background="cyan";	
+	document.querySelector('#div24').innerHTML=no;	
+	var audio=new Audio('click.ogg'); audio.play();alert("SAFE!! your score is" + no )
+	document.bgColor="light_green";
+	}
+	result= result + no ;if( result > 70 ){var audio=new Audio('whistle.ogg'); audio.play();alert("YOU WIN!! " + play.toUpperCase( ) )}
+	document.querySelector('#text2').value="OK!!" + play + " Your total score is " + result + ".";
+	document.querySelector('#text2').style.font="bold italic 20px verdana";
+	document.querySelector('#text2').style.color="navy";
+	b24=10;}
+	vr24.onmouseout=function(){
+	document.getElementbyId('#div24').disable=true;
+	}
+}}
+}
+</script>
+<script>
+var b=0;
+b=b1+b2+b3+b4+b5+b6+b7+b8+b9+b10+b11+b12+b13+b14+b15+b16+b17+b18+b19+b20+b21+b22+b23+b24;
+if(b=240)
+{if( result > 70 ){var audio=new Audio('whistle.ogg'); audio.play();alert("YOU WIN!! " + play.toUpperCase( ) )}
+else{alert("YOU LOSE!! " + play.toUpperCase( ) )}
+	document.querySelector('#text2').value="OK!!" + play + " Your total score is " + result + ".";
+	document.querySelector('#text2').style.font="bold italic 20px verdana";
+	document.querySelector('#text2').style.color="navy";
+}	
+</script>
+<script>
+function getFeedback(){
+window.location="feedback.php"
+}
+//-->
+</script>
+<p style="background-color:orange;font-size:20px;text-align:center;color:black">
+MADE BY PIYUSH TANAJI RAYRIKAR USING JAVASCRIPT ONLY,
+<BR> OBSERVE SOURCE CODE DIRECTLY FOR PROJECT PURPOSE
+<BR> EMAIL ID:PIYUSHRAYRIKAR9594@GMAIL.COM
+<BR>THANK YOU! & REMEMBER TO GIVE FEEDBACK
+<input type='button'  onclick='getFeedback();' value='Give Feedback' name='feedback' /></p>
+</body>
+</html>	
